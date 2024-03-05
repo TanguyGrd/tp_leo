@@ -27,7 +27,8 @@ part 1
 
 
 #!/bin/bash
-
+Tanguy
+05/03/2024
 name=$(youtube-dl --skip-download --get-title --no-warnings $1)
 description=$(youtube-dl --skip-download --get-description --no-warnings $1)
 video_folder="/srv/yt/${videoName}"
