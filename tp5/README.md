@@ -22,3 +22,23 @@ PATH directories :
   - /usr/local/sbin
   - /usr/sbin
 
+
+part 1 
+
+
+#!/bin/bash
+
+name=$(youtube-dl --skip-download --get-title --no-warnings $1)
+description=$(youtube-dl --skip-download --get-description --no-warnings $1)
+video_folder="/srv/yt/${videoName}"
+
+mkdir -p "${video_folder}"
+echo $description > "${video_folder}/description"
+youtube-dl -f mp4 -o "${video_folder}/%(title)s-%(id)s.%(ext)s" --no-warnings $1 >> /dev/null
+echo "Video ${1} was downloaded."
+echo "File path : ${video_folder}"
+if [ ! -d "/var/log/yt" ]; then
+    exit
+fi
+
+echo "[$(date +"%y/%m/%d %H:%M:%S")] Video ${1} was downloaded. File path : ${video_folder}" >> "/var/log/yt/download.log"
